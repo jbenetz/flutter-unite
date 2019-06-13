@@ -38,7 +38,11 @@ class Auth {
 
     _flutterWebViewPlugin.onHttpError.listen((WebViewHttpError error) {
       print("HTTPERROR: ${error.code}");
-      if (error.code == "200") {
+
+      // TODO: added the ignoring of 404 errors below because the CMS auth service
+      // is returning those initially. This doesn't seem right. For now that's
+      // the work around,
+      if (error.code == "200" || error.code == "404") {
         return;
       }
       if (failureCallback != null) {
